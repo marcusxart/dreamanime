@@ -5,14 +5,24 @@ import api from "../../fetch/gogoanimeFetch";
 
 import Grid from "../../components/Grid";
 import Card from "../../components/Card";
+import Tabs from "../../components/Tabs";
 
 const LastestContent = () => {
   const [recentEpisodes, setRecentEpisodes] = useState([]);
+  const [switchTab, setSwitchTab] = useState(1);
+
+  const tabs = [
+    { id: 1, title: "sub" },
+    { id: 2, title: "dub" },
+    { id: 3, title: "chinese" },
+  ];
+
+  const handleSwitchTab = (id) => setSwitchTab(id);
 
   useEffect(() => {
     const fetchRecentEpisodes = async () => {
       try {
-        const res = await api.get("/recent-release");
+        const res = await api.get(`/recent-release?type=${switchTab}`);
         console.log(res);
         if (res && res.data) setRecentEpisodes(res.data);
       } catch (error) {
@@ -21,13 +31,15 @@ const LastestContent = () => {
     };
 
     fetchRecentEpisodes();
-  }, []);
+  }, [switchTab]);
 
   return (
     <Container>
       <Header>
         <h2>recently updated</h2>
+        <Tabs arr={tabs} activeTab={switchTab} handleSwitch={handleSwitchTab} />
       </Header>
+
       <Grid>
         {recentEpisodes.map((data) => (
           <Card
@@ -51,8 +63,11 @@ const Container = styled.div`
 
 const Header = styled.div`
   text-transform: uppercase;
-  padding: 1rem 0;
-
+  padding: 1rem 0 1.5rem;
+  h2 {
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+  }
   @media screen and (min-width: 600px) {
     padding: 1.8rem 0;
   }
