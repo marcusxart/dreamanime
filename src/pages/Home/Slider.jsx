@@ -1,60 +1,53 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Pagination, A11y, Autoplay } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+
+import api from "../../fetch/gogoanimeFetch";
+import { useWindowSize } from "../../hooks/useWindowSize";
+
 import styled from "styled-components";
 
-import img2 from "../../assets/img/img2.jpg";
-
 const Slider = () => {
+  const [topAiring, setTopAiring] = useState([]);
+  const { width } = useWindowSize();
+
+  useEffect(() => {
+    const FetchTopAiring = async () => {
+      try {
+        const res = await api.get("/top-airing");
+        if (res && res.data) setTopAiring(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    FetchTopAiring();
+  }, []);
+
   return (
     <Container>
       <SliderContainer>
         <Swiper
           modules={[Pagination, A11y, Autoplay]}
           spaceBetween={0}
-          slidesPerView={1}
+          slidesPerView={width > 600 ? 2 : 1}
           autoplay
           pagination={{ clickable: true }}
         >
-          <SwiperSlide>
-            <SliderBox>
-              <img src={img2} alt="" />
-              <SliderBoxDesc>
-                <h1>Black Clover</h1>
-              </SliderBoxDesc>
-            </SliderBox>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <SliderBox>
-              <img src={img2} alt="" />
-              <SliderBoxDesc>
-                <h1>Black Clover</h1>
-              </SliderBoxDesc>
-            </SliderBox>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <SliderBox>
-              <img src={img2} alt="" />
-              <SliderBoxDesc>
-                <h1>Black Clover</h1>
-              </SliderBoxDesc>
-            </SliderBox>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <SliderBox>
-              <img src={img2} alt="" />
-              <SliderBoxDesc>
-                <h1>Black Clover</h1>
-              </SliderBoxDesc>
-            </SliderBox>
-          </SwiperSlide>
+          {topAiring.map((data) => (
+            <SwiperSlide key={data.animeId}>
+              <SliderBox>
+                <img src={data.animeImg} alt="" />
+                <SliderBoxDesc>
+                  <h1>{data.animeTitle}</h1>
+                </SliderBoxDesc>
+              </SliderBox>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </SliderContainer>
     </Container>
@@ -95,7 +88,7 @@ const SliderBox = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.7;
+    opacity: 0.8;
   }
 `;
 
@@ -110,7 +103,10 @@ const SliderBoxDesc = styled.div`
 
   h1 {
     padding: 0 5vw;
-    font-size: 3.2rem;
+    text-shadow: 0.3rem 0.3rem var(--offset);
+    font-size: 2.4rem;
+    line-height: 2.2rem;
+    text-transform: capitalize;
     word-wrap: break-word;
   }
 `;

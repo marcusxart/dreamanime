@@ -1,16 +1,13 @@
 import React from "react";
 
 import Slider from "./Slider";
-import Card from "../../components/Card";
+import LastestContent from "./LastestContent";
 
 const Home = () => {
   return (
     <div>
       <Slider />
-      <div style={{ display: "flex", width: "100%" }}>
-        <Card />
-        <Card />
-      </div>
+      <LastestContent />
     </div>
   );
 };

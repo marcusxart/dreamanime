@@ -51,7 +51,7 @@ const Container = styled.nav`
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding: 1.2rem 5vw 1.2rem calc(5vw + 10px);
+  padding: 1.2rem 4vw 1.2rem calc(4vw + 10px);
 `;
 
 const LogoContainer = styled.div`
