@@ -84,11 +84,14 @@ const SliderContainer = styled.div`
 const SliderBox = styled.div`
   height: 100%;
   position: relative;
+  box-shadow: inset 20px -60px 30px 0px rgba(0, 0, 0, 0.6);
+  position: relative;
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.8;
+    position: relative;
+    z-index: -2;
   }
 `;
 
@@ -97,13 +100,14 @@ const SliderBoxDesc = styled.div`
   right: 0;
   color: var(--white);
   z-index: 2;
+
   left: 0;
   bottom: 10%;
   text-align: center;
 
   h1 {
     padding: 0 5vw;
-    text-shadow: 0.3rem 0.3rem var(--offset);
+    /* text-shadow: 0.3rem 0.3rem var(--offset); */
     font-size: 2.4rem;
     line-height: 2.2rem;
     text-transform: capitalize;

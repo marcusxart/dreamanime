@@ -4,7 +4,7 @@
 
 :root {
   --primary: #c9a4ffcc;
-  --black: #15131d;
+  --black: #0d0c11;
   --white: #f5f4fa;
   --grey: #c9c4d1;
   --offset: #1c499c;
@@ -44,13 +44,33 @@ h2 {
 
 p,
 a,
-span {
+span,
+button {
   font-family: "Nunito", sans-serif;
   font-size: 1.4rem;
 }
 
 .logo {
   font-family: "Audiowide", cursive;
+}
+
+button {
+  background-color: var(--primary);
+  color: var(--black);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+  font-weight: 700;
+  font-family: "Oswald", sans-serif;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+button:disabled {
+  opacity: 0.4;
 }
 
 @media screen and (min-width: 600px) {
@@ -60,7 +80,8 @@ span {
 
   p,
   a,
-  span {
+  span,
+  button {
     font-size: 1.8rem;
   }
 }
