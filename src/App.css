@@ -65,7 +65,7 @@ button {
   font-family: "Oswald", sans-serif;
 }
 
-button:hover {
+button:active {
   opacity: 0.8;
 }
 
